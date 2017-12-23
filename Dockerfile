@@ -2,15 +2,39 @@
 # 
 #
 FROM debian:jessie
-MAINTAINER Hendrik Friedel hendrik@friedels.name
-RUN apt-get -y update
-RUN apt-get -y install git-core build-essential debhelper autotools-dev autoconf automake libtool \
-                       libusb-1.0-0-dev  pkg-config base-files  base-files libev-dev  \
-                       init-system-helpers dh-systemd libsystemd-dev  libsystemd-daemon-dev
+MAINTAINER Julian Kalinowski
+RUN apt-get update && apt install -y \
+	debhelper \
+	cdbs \
+	automake \
+	libtool \
+	pkg-config \
+	libusb-1.0-0-dev \
+	git-core \
+	build-essential \
+	libsystemd-dev \
+	dh-systemd \
+	libev-dev \
+	cmake \
+     && rm -rf /var/lib/apt/lists/*
+
+
+#RUN apt-get -y install git-core build-essential debhelper autotools-dev autoconf automake libtool \
+#                       libusb-1.0-0-dev  pkg-config base-files  base-files libev-dev  \
+#                       init-system-helpers dh-systemd libsystemd-dev
+
+
+#	libfmt3-dev \
+
+RUN apt-get update && apt-get -y install \
+	cmake \
+	libsystemd-daemon-dev \
+	init-system-helpers \
+     && rm -rf /var/lib/apt/lists/*
 
 # now build+install knxd
 
-RUN git clone https://github.com/knxd/knxd.git && cd knxd && git checkout tags/v0.12.6 && \
+RUN git clone https://github.com/knxd/knxd.git && cd knxd && git checkout tags/v0.14.17 && \
     dpkg-buildpackage -b -uc && cd .. && dpkg -i knxd_*.deb knxd-tools_*.deb
 
 
