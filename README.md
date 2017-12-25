@@ -1,2 +1,2 @@
 # docker-knxd
-This repository contains a Dockerfile for building knxd on debian jessie.
+This is a docker image of knxd on debian jessie. Dockerfile initially copied from henfri/docker (not cloned because his repo is a multi-purpose repo)
