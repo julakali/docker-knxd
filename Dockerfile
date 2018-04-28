@@ -33,8 +33,8 @@ RUN apt-get update && apt-get -y install \
      && rm -rf /var/lib/apt/lists/*
 
 # now build+install knxd
-
-RUN git clone https://github.com/knxd/knxd.git && cd knxd && git checkout tags/v0.14.17 && \
+# this commit is 0.14.24:
+RUN git clone https://github.com/knxd/knxd.git && cd knxd && git checkout 4fadfa4845d24cd668b924185f38a878d452ea88 && \ 
     dpkg-buildpackage -b -uc && cd .. && dpkg -i knxd_*.deb knxd-tools_*.deb
 
 
