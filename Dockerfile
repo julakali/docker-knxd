@@ -39,34 +39,5 @@ RUN git clone https://github.com/knxd/knxd.git && cd knxd && git checkout 4fadfa
 
 #CMD ["knxd", "-e 0.0.1", "-E 0.0.2:8", "-DTRS", "-c", "-i", "--send-delay=70", "-B single", "-b ipt:192.168.177.24"]
 
-RUN echo '\
-[main] \n\
-name = knxd \n\
-addr = 1.1.240 \n\
-client-addrs = 1.1.241:8 \n\
-connections = server,B.tcp,C.ipt \n\
-cache = gc \n\
-[server] \n\
-debug = debug-server \n\
-discover = true \n\
-router = router \n\
-server = ets_router \n\
-tunnel = tunnel \n\
-[B.tcp] \n\
-server = knxd_tcp \n\
-systemd-ignore = true \n\
-[C.ipt]¸\n\
-driver = ipt \n\
-retry-delay = 30 \n\
-filters = pacefilter,single \n\
-ip-address = 192.168.2.220 \n\
-[pacefilter] \n\
-delay = 30 \n\
-filter = pace \n\
-[debug-server] \n\
-name = mcast:knxd \n\
-error-level = 0x9 \n\
-trace-mask = 0xffc \n'\
-> /etc/knxd.ini
-
+ADD knxd.ini /etc/
 CMD ["knxd", "/etc/knxd.ini"]
